@@ -1,22 +1,21 @@
 #include <libc.h>
 
-unsigned char reverse_bits(unsigned char b)
+unsigned char reverse_bits(unsigned char octet)
 {
-	unsigned char	r = 0;
-	unsigned		byte_len = 8;
-
-	while (byte_len--)
+	int i = 8;
+	unsigned char c;
+	while(i--)
 	{
-		r = (r << 1) | (b & 1);
-		b >>= 1;
+		c = (c << 1) | (octet & 1);
+		octet = octet >> 1;
 	}
-	return (r);
+	return (c);
 }
 
 void print_bits(unsigned char octet)
 {
 	int i = 8;
-	unsigned char bit;
+	char bit;
 
 	while(i--)
 	{
@@ -25,22 +24,10 @@ void print_bits(unsigned char octet)
 	}
 }
 
-// void print_bits2(unsigned char octet)
-// {
-// 	int i = -1;
-// 	unsigned char bit;
-
-// 	while(i++ < 7)
-// 	{
-// 		bit = (octet >> i & 1) + '0';
-// 		write(1,&bit,1);
-// 	}
-// }
-
 int main()
 {
-	print_bits(39);
+	print_bits(12);
 	printf("\n");
-	print_bits(reverse_bits(39));
-	//reverse_bits(10);
+	print_bits(reverse_bits(12));
+
 }
