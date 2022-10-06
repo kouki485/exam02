@@ -1,4 +1,7 @@
-#include <libc.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+
 int ft_atoi(char *str)
 {
 	int i = 0;
@@ -14,11 +17,9 @@ int ft_atoi(char *str)
 			i++;
 		if('0' <= str[i] && str[i] <= '9')
 		{
-			 num = str[i] - '0';
+			 num =num * 10 + (str[i] - '0');
 			 i++;
 		}
-		else
-			break;
 	}
 	return (num * flag);
 }
@@ -60,8 +61,9 @@ int main(int argc,char **argv)
 			if (is_prime(i--))
 				sum += (i + 1);
 		putnum(sum);
+		write(1,"\n",1);
 		return (0);
 	}
-	write(1,"0",1);
-	//printf("%d",is_prime(1));
+	putnum(0);
+	write(1,"\n",1);
 }
