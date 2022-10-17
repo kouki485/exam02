@@ -1,55 +1,52 @@
+//1619 -1638
 #include <stdlib.h>
 #include <stdio.h>
 
-int num_base(int n)
+int num_len(int n)
 {
-	int i = 0;
-	while (n)
+	int len = 0;
+	if (n <= 0)
+		len++;
+	while(n)
 	{
-		n = n / 10;
-		i++;
+		len++;
+		n /= 10;
 	}
-	return (i);
+	return (len);
 }
 
-char *ft_itoa(int n)
+char	*ft_itoa(int nbr)
 {
-	if(n == 0)
-	{
- 		char *str = malloc(sizeof(char) * 2);
+	long lnum = nbr;
+	int len = num_len(lnum);
+	if(lnum == -2147483648)
+		return ("-2147483648");
+	char *str = malloc(sizeof(char) * len + 1);
+	if (!str)
+		return (NULL);
+	str[len] = '\0';
+	if (lnum == 0)
 		str[0] = '0';
-		str[1] = '\0';
-		return (str);
-	}
-	if(n > 0)
+	else if (lnum < 0)
 	{
-		int k = num_base(n);//->3
- 		char *str2 = malloc(sizeof(char) * k + 1);
-		str2[k] = '\0';
-		//int i = 0;
-		while(str2[k])
-		{
-			str2[k] = n % 10 + '0';
-			n = n / 10;
-			k--;
-		}
-		return (str2);
+		lnum = -lnum;
+		str[0] = '-';
 	}
-	return (0);
+	while(lnum)
+	{
+		str[--len] = lnum % 10 + '0';
+		lnum /= 10;
+	}
+	return (str);
 }
 
-int main()
-{
-
-	
-	printf("%s\n",ft_itoa(0));
-	printf("%s\n",ft_itoa(10));
-	printf("%s\n",ft_itoa(156));
-	printf("%s\n",ft_itoa(6950));
-}
-
-
-// str[3]
-// 568 % 10 = 8
-// (568 / 10) % 10 = 6
-// (56 / 10) % 10 = 5
+// int main(int argc,char **argv)
+// {
+// 	if(argc == 2)
+// 	{
+// 		char *str = ft_itoa(atoi(argv[1]));
+// 		//printf("len : %d\n",num_len(atoi(argv[1])));
+// 		printf("%s\n",str);
+// 		free(str);
+// 	}
+// }
